@@ -1,0 +1,98 @@
+# Application
+server:
+  port: 8082
+  servlet:
+    context-path: /api
+spring:
+  application:
+    name: fankassure
+  
+  # Database Configuration
+  datasource:
+    url: jdbc:postgresql://localhost:5433/fankassure
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+  
+  # JPA / Hibernate
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  
+  # Flyway Migration
+  flyway:
+    enabled: false
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    database-platform: postgresql
+  
+  # Redis Cache
+  redis:
+    host: localhost
+    port: 6379
+  
+  # Kafka
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: fankaassure
+      auto-offset-reset: earliest
+  
+  # Mail
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: your-email@gmail.com
+    password: your-app-password
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  
+  # File upload
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+# Server Configuration
+
+# JWT Configuration
+jwt:
+  secret: fankaAssureSecretKeyMustBeVeryLongAndSecureInProduction
+  expiration: 86400000
+
+# Logging Configuration
+logging:
+  level:
+    root: INFO
+    com.fankatech: DEBUG
+  file:
+    name: logs/fankaassure.log
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# Swagger / OpenAPI
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when_authorized

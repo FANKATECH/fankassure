@@ -1,4 +1,4 @@
-package com.fankatech.fankatech;
+package com.fankatech.fankaassure;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
